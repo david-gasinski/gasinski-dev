@@ -12,16 +12,34 @@ import {
   CardFooter,
   CardHeader,
   Heading,
-  HStack
+  HStack,
+  Code,
+  Icon,
+  Kbd
 } from "@chakra-ui/react";
 import { Header } from "./components/Header";
 import { Socials } from "./components/Socials";
 import { Link } from "@chakra-ui/next-js";
-import { FaGithubSquare, FaRegFilePdf, FaRocket } from "react-icons/fa";
+import { FaGithubSquare, FaLongArrowAltRight, FaRocket } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { SiNextdotjs, SiChakraui, SiPython, SiSocketdotio } from "react-icons/si";
+import { useCallback, useEffect } from "react";
 
 export default function Home() {
+
+  const keyDownHandler = (event: KeyboardEvent) => {
+    if (event.ctrlKey && event.key == "k") {
+      // do something
+      console.log(`You just pressed control and k`);
+    }
+    event.preventDefault();
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", keyDownHandler);
+    return () => {
+      window.removeEventListener("keydown", keyDownHandler)
+    }
+  })
   return (
     <>
       <Header underlined={true} size="3rem">
@@ -71,50 +89,26 @@ export default function Home() {
               ShefJam 9.
             </Link>
           </Box>
-          <Button leftIcon={<FaRegFilePdf />} bg="cyan.dracula">
-            View my Resume
-          </Button>
         </Container>
       </motion.div>
-
+      
       <motion.div
-        initial={{ x: 100, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 100 }}
+        initial={{}}
+        animate={{}}
+        transition={{}}
       >
-        <Grid templateColumns="repeat(2, 1fr)" maxW={"container.xl"}>
-          <GridItem>
-            <Header underlined={false} size="2rem">
-              Skills
-            </Header>
-          </GridItem>
-          <GridItem>
-            <Header underlined={false} size="2rem">
-              Projects
-            </Header>
-            <Project
-              title="MiniPlayArena"
-              demo="https://miniplayarena.gasinski.dev"
-              github="https://github.com/MiniPlayArena/"
-            >
-              A simple platform to allow users to play popular board games online with their friends. Players can create parties to allow their friends to join and play many classic card/board games! 
-                <HStack pt={5} maxW='50%'>
-                  <Button isActive={false} leftIcon={<SiNextdotjs />}>
-                    NextJS  
-                  </Button>
-                  <Button isActive={false} leftIcon={<SiChakraui />}>
-                    Chakra UI
-                  </Button>
-                  <Button isActive={false} leftIcon={<SiPython />}>
-                    Python Flask
-                  </Button>
-                  <Button isActive={false} leftIcon={<SiSocketdotio />}>
-                    Flask-Socket.io
-                  </Button>
-                </HStack>
-            </Project>
-          </GridItem>
-        </Grid>
+      <Button m={5} pt={5} pb={5} fontSize='1.5rem' bg='backgroud.dracula' color='comment.dracula' _hover={{ bg: 'highlight.dracula'}}>
+              Press 
+                <Kbd  ml={2} mr={1}>
+                  ctrl
+                </Kbd>
+                +
+                <Kbd ml={1} mr={2}>
+                  K
+                </Kbd>
+              to start
+              <Icon pl={2} as={FaLongArrowAltRight} />
+           </Button>
       </motion.div>
     </>
   );
@@ -140,8 +134,8 @@ function Project({
       bg="highlight.dracula"
       color="text.dracula"
     >
-      <CardHeader>
-        <Heading size="lg"> {title}</Heading>
+      <CardHeader textAlign='left'>
+        <Heading size="lg" alignContent='left'> {title}</Heading>
       </CardHeader>
       <CardBody>{children}</CardBody>
       <CardFooter display="flex" justifyContent="center">
