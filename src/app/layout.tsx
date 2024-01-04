@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={jetbrains_mono.className} >
         <Providers>
-          <Container maxW='container.lg' textAlign='center'>
+          <Container maxW='container.xl' textAlign='center'>
             {children}
           </Container>
         </Providers>

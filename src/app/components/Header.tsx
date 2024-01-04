@@ -10,13 +10,13 @@ export function Header({children, underlined, size} : {children: React.ReactNode
                   transition={{ type: 'spring', stiffness: 100 }}
               >
                   <Box
-                      maxW='container.lg'
+                      maxW='container.xl'
                       display='flex'
                       justifyContent='center'
                       flexDir='row'
                       pt={10}
                   >
-                      <Code mb={5} fontSize={size} textColor={'#F8F8F2'} bg={'#44475A'}>
+                      <Code mb={5} fontSize={size} bg='highlight.dracula' color='text.dracula'>
                          {children}
                       </Code>
                   </Box>
