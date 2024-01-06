@@ -1,51 +1,58 @@
 "use client";
 
+//frameworks
+import { motion } from "framer-motion";
+import { useEffect } from "react";
+
+// chakra components
 import {
   Button,
   Box,
   Stack,
   Container,
-  Grid,
-  GridItem,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Heading,
-  HStack,
-  Code,
   Icon,
-  Kbd
+  Kbd,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { Header } from "./components/Header";
-import { Socials } from "./components/Socials";
 import { Link } from "@chakra-ui/next-js";
 import { FaGithubSquare, FaLongArrowAltRight, FaRocket } from "react-icons/fa";
-import { motion } from "framer-motion";
-import { useCallback, useEffect } from "react";
+
+// custom components
+import { Header } from "./components/Header";
+import { Nav } from "./components/Nav";
+import { Socials } from "./components/Socials";
 
 export default function Home() {
+  const { isOpen, onToggle, onClose } = useDisclosure();
 
+  // key handling
   const keyDownHandler = (event: KeyboardEvent) => {
-    if (event.ctrlKey && event.key == "k") {
-      // do something
-      console.log(`You just pressed control and k`);
-    }
     event.preventDefault();
+    if (event.ctrlKey && event.key === "k") {
+      onToggle(); // toggle modal on press
+    }
   };
 
   useEffect(() => {
     window.addEventListener("keydown", keyDownHandler);
     return () => {
-      window.removeEventListener("keydown", keyDownHandler)
-    }
-  })
+      window.removeEventListener("keydown", keyDownHandler);
+    };
+  });
+
   return (
     <>
       <Header underlined={true} size="3rem">
         David Gasinski
       </Header>
       <Socials />
+      
+      <Nav isOpen={isOpen} onClose={onClose} /> 
 
       {
         // About Me
@@ -91,24 +98,31 @@ export default function Home() {
           </Box>
         </Container>
       </motion.div>
-      
-      <motion.div
-        initial={{}}
-        animate={{}}
-        transition={{}}
-      >
-      <Button m={5} pt={5} pb={5} fontSize='1.5rem' bg='backgroud.dracula' color='comment.dracula' _hover={{ bg: 'highlight.dracula'}}>
-              Press 
-                <Kbd  ml={2} mr={1}>
-                  ctrl
-                </Kbd>
-                +
-                <Kbd ml={1} mr={2}>
-                  K
-                </Kbd>
-              to start
-              <Icon pl={2} as={FaLongArrowAltRight} />
-           </Button>
+
+      <motion.div initial={{}} animate={{}} transition={{}}>
+        <Button
+          m={5}
+          pt={5}
+          pb={5}
+          fontSize="1.5rem"
+          bg="backgroud.dracula"
+          color="comment.dracula"
+          _hover={{ bg: "highlight.dracula" }}
+          onClick={onToggle}
+        >
+          Press
+          <Kbd ml={2} mr={1}>
+            {" "}
+            ctrl{" "}
+          </Kbd>
+          +
+          <Kbd ml={1} mr={2}>
+            {" "}
+            K
+          </Kbd>
+          to start
+          <Icon pl={2} as={FaLongArrowAltRight} />
+        </Button>
       </motion.div>
     </>
   );
@@ -134,8 +148,11 @@ function Project({
       bg="highlight.dracula"
       color="text.dracula"
     >
-      <CardHeader textAlign='left'>
-        <Heading size="lg" alignContent='left'> {title}</Heading>
+      <CardHeader textAlign="left">
+        <Heading size="lg" alignContent="left">
+          {" "}
+          {title}
+        </Heading>
       </CardHeader>
       <CardBody>{children}</CardBody>
       <CardFooter display="flex" justifyContent="center">
