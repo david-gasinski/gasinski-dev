@@ -2,7 +2,7 @@
 
 //frameworks
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // chakra components
 import {
@@ -18,6 +18,8 @@ import {
   Icon,
   Kbd,
   useDisclosure,
+  Input,
+  FormControl
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/next-js";
 import { FaGithubSquare, FaLongArrowAltRight, FaRocket } from "react-icons/fa";
@@ -29,34 +31,38 @@ import { Socials } from "./components/Socials";
 
 export default function Home() {
   const { isOpen, onToggle, onClose } = useDisclosure();
+  const input = useRef(null);
 
   // key handling
   const keyDownHandler = (event: KeyboardEvent) => {
-    event.preventDefault();
     if (event.ctrlKey && event.key === "k") {
+      event.preventDefault();
       onToggle(); // toggle modal on press
     }
   };
 
   useEffect(() => {
-    window.addEventListener("keydown", keyDownHandler);
-    return () => {
-      window.removeEventListener("keydown", keyDownHandler);
-    };
+    // or, if modal open, don't listen to key strokes
+      document.addEventListener("keydown", keyDownHandler);
+      return () => {
+        document.removeEventListener("keydown", keyDownHandler);
+      }
   });
 
+  const [val, setVal] = useState("");
+
   return (
-    <>
+    <Container maxW='container.xl'>
       <Header underlined={true} size="3rem">
         David Gasinski
       </Header>
       <Socials />
       
-      <Nav isOpen={isOpen} onClose={onClose} /> 
-
+      <Nav isOpen={isOpen} onClose={onClose} inputRef={input}/>
       {
         // About Me
       }
+
       <motion.div
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
@@ -100,6 +106,11 @@ export default function Home() {
       </motion.div>
 
       <motion.div initial={{}} animate={{}} transition={{}}>
+      <Box
+        maxW='container.xl'
+        textAlign='center'
+      >
+
         <Button
           m={5}
           pt={5}
@@ -109,7 +120,7 @@ export default function Home() {
           color="comment.dracula"
           _hover={{ bg: "highlight.dracula" }}
           onClick={onToggle}
-        >
+          >
           Press
           <Kbd ml={2} mr={1}>
             {" "}
@@ -123,8 +134,9 @@ export default function Home() {
           to start
           <Icon pl={2} as={FaLongArrowAltRight} />
         </Button>
+          </Box>
       </motion.div>
-    </>
+    </Container>
   );
 }
 

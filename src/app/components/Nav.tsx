@@ -1,40 +1,54 @@
+"use client";
 import {
     Modal,
     ModalOverlay, 
     ModalContent,
-    ModalHeader,
+    FormControl,
     ModalBody,
-    Box,
+    Container,
     Input,
+    VStack,
 } from '@chakra-ui/react'
 
 import { ReactEventHandler, useState, useRef } from 'react'
 
-export function Nav({children, isOpen, onClose} : {children: React.ReactNode, isOpen: boolean, onClose: () => void}){
+export function Nav({ isOpen, onClose, inputRef} : { isOpen: boolean, onClose: () => void, inputRef: React.LegacyRef<HTMLInputElement>}){
 
     const [val, setVal] = useState('')
-    const initialFocus = useRef(null)
-
-    const handleInput = (input: string) => {
-        setVal(input);
+    
+    const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setVal(e.target.value);
         console.log(val);
     }
+
     return (
-        <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent bg="background.dracula" color="comment.dracula" fontSize="2rem">
           <ModalBody pb={5} w="100%">
-            <Box>
+            <FormControl>
                 <Input
-                    autoFocus={false}
-                    value={val}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInput(e.target.value)}
-                    ref={initialFocus}
-                    placeholder={"Enter command..."}
-                    />
-            </Box>
+                  name="command_line"
+                  type="input"
+                  value={val}
+                  ref={inputRef}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {handleInput(e)}}
+                  placeholder={"Enter command..."}
+                  />
+            </FormControl>
+
+            <VStack>
+
+            </VStack>
           </ModalBody>
         </ModalContent>
       </Modal>
     ) 
+}
+
+
+function Command({name, route} : {name: string, route: string}){
+  return (
+
+  )
 }
