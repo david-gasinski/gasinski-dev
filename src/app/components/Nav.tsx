@@ -50,9 +50,7 @@ export function Nav({
     setVal(e.target.value);
   };
 
-  // maybe write custom function to split text based on \n char and return array
-  const help_message = ["Hello! Welcome to my portfolio", "To get started, type any command.", "Available Commands:", "-  view projects | skills"] // each element marks a new line
-
+    
   // auto fill
   useEffect(() => {
     const render_queue: command[] = [];
