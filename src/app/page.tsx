@@ -52,7 +52,7 @@ export default function Home() {
   const [val, setVal] = useState("");
 
   return (
-    <Container maxW='container.xl'>
+    <Container maxW='container.xl' >
       <Header underlined={true} size="3rem">
         David Gasinski
       </Header>
