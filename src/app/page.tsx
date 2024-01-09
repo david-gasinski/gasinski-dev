@@ -6,20 +6,9 @@ import { useEffect, useRef, useState } from "react";
 
 // chakra components
 import {
-  Button,
   Box,
-  Stack,
   Container,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Heading,
-  Icon,
-  Kbd,
-  useDisclosure,
-  Input,
-  FormControl
+  useDisclosure
 } from "@chakra-ui/react";
 import { Link } from "@chakra-ui/next-js";
 import { FaGithubSquare, FaLongArrowAltRight, FaRocket } from "react-icons/fa";
@@ -28,6 +17,14 @@ import { FaGithubSquare, FaLongArrowAltRight, FaRocket } from "react-icons/fa";
 import { Header } from "./components/Header";
 import { Nav } from "./components/Nav";
 import { Socials } from "./components/Socials";
+import { Project } from "./components/Project";
+
+// data types / interfaces
+import { ProjectObject } from "./content/projects";
+
+// content
+import { projects } from "./content/projects";
+import { NavButton } from "./components/NavButton";
 
 export default function Home() {
   const { isOpen, onToggle, onClose } = useDisclosure();
@@ -42,14 +39,12 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // or, if modal open, don't listen to key strokes
       document.addEventListener("keydown", keyDownHandler);
       return () => {
         document.removeEventListener("keydown", keyDownHandler);
       }
   });
 
-  const [val, setVal] = useState("");
 
   return (
     <Container maxW='container.xl' >
@@ -105,78 +100,8 @@ export default function Home() {
         </Container>
       </motion.div>
 
-      <motion.div initial={{}} animate={{}} transition={{}}>
-      <Box
-        maxW='container.xl'
-        textAlign='center'
-      >
+      <NavButton onToggle={onToggle} />
 
-        <Button
-          m={5}
-          pt={5}
-          pb={5}
-          fontSize="1.5rem"
-          bg="backgroud.dracula"
-          color="comment.dracula"
-          _hover={{ bg: "highlight.dracula" }}
-          onClick={onToggle}
-          >
-          Press
-          <Kbd ml={2} mr={1}>
-            {" "}
-            ctrl{" "}
-          </Kbd>
-          +
-          <Kbd ml={1} mr={2}>
-            {" "}
-            K
-          </Kbd>
-          to start
-          <Icon pl={2} as={FaLongArrowAltRight} />
-        </Button>
-          </Box>
-      </motion.div>
     </Container>
-  );
-}
-
-function Project({
-  children,
-  title,
-  github,
-  demo,
-}: {
-  children: React.ReactNode;
-  title: string;
-  github: string;
-  demo: string;
-}) {
-  return (
-    <Card
-      mt={5}
-      mb={5}
-      ml={10}
-      mr={10}
-      bg="highlight.dracula"
-      color="text.dracula"
-    >
-      <CardHeader textAlign="left">
-        <Heading size="lg" alignContent="left">
-          {" "}
-          {title}
-        </Heading>
-      </CardHeader>
-      <CardBody>{children}</CardBody>
-      <CardFooter display="flex" justifyContent="center">
-        <Stack direction="row" align="center" spacing={4}>
-          <Link href={demo}>
-            <Button rightIcon={<FaRocket />}>Try it </Button>
-          </Link>
-          <Link href={github}>
-            <Button rightIcon={<FaGithubSquare />}>View on github</Button>
-          </Link>
-        </Stack>
-      </CardFooter>
-    </Card>
   );
 }

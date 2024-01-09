@@ -4,14 +4,14 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  InputGroup,
   ModalBody,
   Input,
   VStack,
   Link,
-  InputLeftAddon,
+  Text,
   Icon,
-  Box
+  Box,
+  SlideFade
 } from "@chakra-ui/react";
 
 import { IoIosArrowForward } from "react-icons/io";
@@ -21,9 +21,14 @@ import { useState, useEffect } from "react";
 interface command {
   name: string;
   route: string;
+  component?: React.ReactNode;
 }
 
 const commands: command[] = [
+  {
+    name: "home",
+    route: "/"
+  },
   {
     name: "projects",
     route: "/projects",
@@ -31,8 +36,13 @@ const commands: command[] = [
   {
     name: "skills",
     route: "/skills",
-  },
+  }, 
+  {
+    name: "blog",
+    route: "/blogs"
+  }
 ];
+
 
 export function Nav({
   isOpen,
@@ -50,7 +60,7 @@ export function Nav({
     setVal(e.target.value);
   };
 
-    
+
   // auto fill
   useEffect(() => {
     const render_queue: command[] = [];
@@ -60,10 +70,13 @@ export function Nav({
         render_queue.push(command);
       }
     });
+
+
     setRender(render_queue);
   }, [val]);
 
   return (
+    <SlideFade in={isOpen} offsetY='20px'>
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent
@@ -71,9 +84,12 @@ export function Nav({
         color="comment.dracula"
         fontSize="2rem"
         w='container.md'
-        h='25vh'
+        pb={1}
       >
-        <ModalBody pb={5} >
+        <ModalBody>
+          <Text fontSize='0.8rem' pb={2}>
+            search for a page below, click the link to access it 
+          </Text>
           <Box display='flex' justifyContent='center' flexDir='row' alignItems='center' _hover={{borderColor:'comment.dracula'}}>
             <Icon as={IoIosArrowForward} fontSize='1.2rem'/>
             <Input
@@ -88,33 +104,26 @@ export function Nav({
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 handleInput(e);
               }}
-              placeholder={"Enter command..."}
+              placeholder={"Search..."}
               />
 
               </Box>
           <VStack pt={2}>
             {render.map((command, index) => (
-              <Command route={command.route} key={index}>
-                {command.name}
-              </Command>
-            ))}
+                command.component ? (
+                  command.component
+                  ) : (
+                  <Link href={command.route} key={index} fontSize="1.5rem" borderColor='comment.dracula' w='100%' textAlign={'center'}>
+                    {command.name}
+                  </Link>
+                )
+                ))}
           </VStack>
         </ModalBody>
       </ModalContent>
     </Modal>
+</SlideFade>
   );
 }
 
-function Command({
-  children,
-  route,
-}: {
-  children: React.ReactNode;
-  route: string;
-}) {
-  return (
-    <Link href={route} fontSize="1.5rem">
-      {children}
-    </Link>
-  );
-}
+
