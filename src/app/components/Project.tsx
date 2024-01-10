@@ -3,9 +3,15 @@ import Link from "next/link";
 import { FaRocket, FaGithubSquare } from "react-icons/fa";
 import { ProjectObject } from "../content/projects";
 import { Image } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 
 export function Project({project} : {project: ProjectObject}) {
     return (
+      <motion.div
+        initial={{ x: 50, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 50 }}
+      >
       <Card
         mt={5}
         mb={5}
@@ -13,7 +19,7 @@ export function Project({project} : {project: ProjectObject}) {
         mr={10}
         bg="highlight.dracula"
         color="text.dracula"
-      >
+        >
         <CardHeader textAlign="left">
           <Heading size="lg" alignContent="left">
             {" "}
@@ -45,6 +51,7 @@ export function Project({project} : {project: ProjectObject}) {
           </Stack>
         </CardFooter>
       </Card>
+      </motion.div>
     );
   }
   
