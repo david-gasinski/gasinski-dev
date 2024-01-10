@@ -83,7 +83,7 @@ export default function Projects() {
         <Tabs index={tabIndex} onChange={handleTabsChange}>
           <TabPanels>
             {projects.map((project, index) => (
-              <TabPanel>
+              <TabPanel key={index}>
                 <Project project={project} />
               </TabPanel>
             ))}
