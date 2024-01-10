@@ -19,6 +19,8 @@ export function Project({project} : {project: ProjectObject}) {
         mr={10}
         bg="highlight.dracula"
         color="text.dracula"
+        maxW='container.xl'
+        height='66vh'
         >
         <CardHeader textAlign="left">
           <Heading size="lg" alignContent="left">

@@ -93,7 +93,7 @@ export default function Projects() {
             <Button onClick={() => updateIndex(true)} > <FaChevronRight />    </Button>
         </Box>
       </Container>
-      = <NavButton onToggle={onToggle} />
+      <NavButton onToggle={onToggle} />
     </Container>
   );
 }
