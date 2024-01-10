@@ -15,7 +15,7 @@ import {
 // custom components
 import { Nav } from "../components/Nav";
 import { Header } from "../components/Header";
-import { EventHandler, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NavButton } from "../components/NavButton";
 
 import { Project } from "../components/Project";
@@ -70,6 +70,9 @@ export default function Projects() {
       <Header underlined={false} size="2rem">
         Projects
       </Header>
+      <Text textAlign={'center'} color='comment.dracula' fontSize={'1.15rem'}>
+        Check out all my personal projects below! You can view the code for each repo on github, or test it out live.
+      </Text>
       <Nav isOpen={isOpen} onClose={onClose} inputRef={input} />
       <Container
         display={"flex"}
