@@ -1,12 +1,12 @@
 'use client'
 
 // chakra components
-import { Box, Button, Container, Icon, Kbd, useDisclosure } from "@chakra-ui/react"
+import { Text, Button, Container, Icon, Kbd, useDisclosure, Tabs, TabPanels, TabPanel } from "@chakra-ui/react"
 
 // custom components
 import { Nav } from "../components/Nav"
 import { Header } from "../components/Header"
-import { useEffect, useRef } from "react";
+import { EventHandler, useEffect, useRef, useState } from "react";
 import { NavButton } from "../components/NavButton";
 
 import { Project } from "../components/Project";
@@ -16,6 +16,7 @@ import { projects } from "../content/projects";
 
 export default function Projects(){
     const { isOpen, onToggle, onClose } = useDisclosure();
+    const [ tabIndex, setTabIndex] = useState(0);
     const input = useRef(null);
 
     // key handling
@@ -33,6 +34,25 @@ export default function Projects(){
           }
       });
 
+    const updateIndex = (right: boolean) => {
+        console.log("fired")
+       if (right) {
+        if (tabIndex != projects.length - 1){
+            console.log("fired twice")
+            setTabIndex(tabIndex + 1)
+        }
+       } else {
+        if (tabIndex != 0 ) {
+            setTabIndex(tabIndex - 1)
+        }
+       }
+    }
+
+    const handleTabsChange = (index: number) => {
+        setTabIndex(index)
+    }
+      
+
     return(
         <Container maxW='container.xl'>
             <Header underlined={true} size="3rem">
@@ -45,10 +65,27 @@ export default function Projects(){
 
             <Nav isOpen={isOpen} onClose={onClose} inputRef={input}/>
 
-            {projects.map((project, index) =>(
-                <Project project={project} key={index} />
-                ))}
-        <NavButton onToggle={onToggle} />
+
+            <Text> {tabIndex} </Text>
+            <Button onClick={() => updateIndex(false)}>  
+                Left
+            </Button>
+            <Button onClick={() => updateIndex(true)}>
+                Right
+            </Button>
+
+            
+
+            <Tabs index={tabIndex} onChange={handleTabsChange}>
+                <TabPanels>
+                {projects.map((project, index) =>(
+                    <TabPanel>
+                        <Project project={project} />
+                    </TabPanel>
+                ))}                    
+               </TabPanels>
+            </Tabs>
+=            <NavButton onToggle={onToggle} />
         </Container>
     )
 }

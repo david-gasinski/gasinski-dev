@@ -1,7 +1,8 @@
-import { Card, CardHeader, Heading, CardBody, CardFooter, Stack, Button } from "@chakra-ui/react";
+import { Text, Card, CardHeader, Heading, CardBody, CardFooter, Stack, Button, Grid, GridItem, Box } from "@chakra-ui/react";
 import Link from "next/link";
 import { FaRocket, FaGithubSquare } from "react-icons/fa";
 import { ProjectObject } from "../content/projects";
+import { Image } from "@chakra-ui/react";
 
 export function Project({project} : {project: ProjectObject}) {
     return (
@@ -19,7 +20,20 @@ export function Project({project} : {project: ProjectObject}) {
             {project.title}
           </Heading>
         </CardHeader>
-        <CardBody>{project.desciption}</CardBody>
+        <CardBody>  
+            <Box display='flex' flexDir='row'> 
+                <Box w='100%' height='100%'>
+                        {project.desciption.map((val, index) => (
+                            <Box key={index} pb={3}>
+                                    {val}
+                            </Box>
+                        ))}
+                </Box>   
+                <Box  w='100%' height='100%'>
+                    <Image src={project.demoImage} alt='Project Preview' borderRadius={10} />
+                </Box> 
+            </Box> 
+            </CardBody>
         <CardFooter display="flex" justifyContent="center">
           <Stack direction="row" align="center" spacing={4}>
             <Link href={project.demo}>

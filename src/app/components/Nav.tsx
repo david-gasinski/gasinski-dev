@@ -88,7 +88,6 @@ export function Nav({
       >
         <ModalBody>
           <Text fontSize='0.8rem' pb={2}>
-            search for a page below, click the link to access it 
           </Text>
           <Box display='flex' justifyContent='center' flexDir='row' alignItems='center' _hover={{borderColor:'comment.dracula'}}>
             <Icon as={IoIosArrowForward} fontSize='1.2rem'/>
