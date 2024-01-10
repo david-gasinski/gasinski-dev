@@ -70,12 +70,12 @@ export default function Home() {
           fontSize="1.1rem"
         >
           <Box pt={2}>
-            Welcome! My name is David and i'm an undergraduate student
+            Welcome! My name is David and I am a undergraduate student
             <Link color={"cyan.dracula"} href={"https://www.sheffield.ac.uk/"}>
               {" "}
               @ The University of Sheffield{" "}
             </Link>
-            studying <b> Software Engineering</b>. I'm avid problem solver with
+            studying <b> Software Engineering</b>. Avid problem solver with
             a passion for programming and mathematics, also an athlete who
             enjoys swimming recreationally and occasioanlly competing in amateur
             powerlifting.
