@@ -10,37 +10,37 @@ export const theme = extendTheme({
     },
     colors: {
         background: {
-            dracula: "#282a36"
+            dracula: "#1a1b26"
         },
         highlight: {
-            dracula: "#44475a"
+            dracula: "#24283b"
         },
         text: {
-            dracula: "#f8f8f2 "
+            dracula: "#a9b1d6 "
         },
         comment: {
-            dracula: "#6272a4"
+            dracula: "#565f89"
         },
         cyan: {
-            dracula: "#8be9fd"
+            dracula: "#7dcfff"
         },
         green: {
-            dracula: "#50fa7b"
+            dracula: "#9ece6a"
         },
         orange: {
-            dracula: "#ffb86c"
+            dracula: "#ff9e64"
         },
         pink: {
-            dracula: "#ff79c6"
+            dracula: "#f7768e"
         },
         purple: {
-            dracula: "#bd93f9"
+            dracula: "#bb9af7"
         },
         red: {
             dracula: "#ff5555"
         },
         yellow: {
-            dracula: "#f1fa8c"
+            dracula: "#e0af68"
         }
     }
 })
