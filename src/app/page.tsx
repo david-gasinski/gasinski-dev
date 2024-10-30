@@ -87,7 +87,7 @@ export default function Home() {
               href={"https://www.linkedin.com/company/project-falcon-uk/"}
             >
               {" "}
-              Project Falcon.
+              Avis Drone Labs.
             </Link>
           </Box>
           <Box pb={5}>
